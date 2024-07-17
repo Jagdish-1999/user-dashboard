@@ -1,0 +1,40 @@
+"use client";
+import { useEffect, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "../_store/store";
+import { HomeRoot } from "../_styles/styled-home";
+import { fetchWishlistProductsWithIds } from "../_slices/wishlist.slice";
+import { Card } from "../_components/product-card/card";
+import { Loading } from "../_components/loading";
+import { ProductsContainer } from "./_styles/styled.wishlist";
+
+const Wishlist = () => {
+  const initialRef = useRef(true);
+  const dispatch = useAppDispatch();
+
+  const { data: wishlistItems, products } = useAppSelector(
+    (state) => state.wishlist
+  );
+
+  useEffect(() => {
+    if (initialRef.current && wishlistItems.length > 0) {
+      dispatch(fetchWishlistProductsWithIds(wishlistItems));
+      initialRef.current = false;
+    }
+  }, [dispatch, wishlistItems]);
+
+  if (products.isLoading) {
+    return <Loading />;
+  }
+
+  return (
+    <HomeRoot>
+      <ProductsContainer className="custom-scrollbar">
+        {products.data.map((product) => (
+          <Card key={product._id} product={product} />
+        ))}
+      </ProductsContainer>
+    </HomeRoot>
+  );
+};
+
+export default Wishlist;
