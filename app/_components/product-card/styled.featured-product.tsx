@@ -10,9 +10,17 @@ const ProductWrapper = styled.div`
   justify-content: space-between;
   gap: 4rem;
   border-radius: 4px;
-  /* border-bottom: 1px solid ${(props) => props.theme.colors.card_border}; */
   padding: 1rem;
   grid-column: 1/-1;
+  margin-top: 1rem;
+  transition: all 0.2s;
+  background-color: ${(props) => props.theme.colors.nav_bg};
+  border: 1px solid ${(props) => props.theme.colors.card_border};
+
+  &:hover {
+    transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    border: 1px solid ${(props) => props.theme.colors.card_hover_border};
+  }
 `;
 
 const DescriptionWrapper = styled.div`
@@ -36,6 +44,7 @@ const Title = styled.h2`
 
 const Description = styled.p`
   color: ${(props) => props.theme.colors.description};
+  font-family: "DM Sans";
 `;
 
 const ButtonWrapper = styled.div`
@@ -74,6 +83,14 @@ const Button = styled.button<{ $variant?: "outlined" | "normal" }>`
 const ButtonLink = styled(Link)<{ $variant: "outlined" | "normal" }>`
   ${buttonStyle}
   text-decoration: none;
+  font-size: 14px;
+  text-underline-offset: 1px;
+  transition: all 0.3s;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 `;
 
 const Wishlist = styled(WishlistIcon)`

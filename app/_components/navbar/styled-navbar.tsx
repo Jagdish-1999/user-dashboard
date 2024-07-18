@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 
-const RootNavbar = styled.div<{}>`
+const RootNavbar = styled.div`
   background-color: ${(props) => props.theme.colors.nav_bg};
   color: ${(props) => props.theme.colors.fg};
   display: flex;

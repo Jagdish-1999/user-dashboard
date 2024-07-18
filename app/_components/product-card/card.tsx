@@ -12,8 +12,6 @@ import {
 } from "./styled.card";
 import { ImageSlider } from "../image-slider/image-slider";
 import { useTheme } from "../theme-providers";
-import { Button } from "./styled.featured-product";
-import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/app/_store/store";
 import { addToWishlist } from "@/app/_slices/wishlist.slice";
 import { addToCart } from "@/app/_slices/cart.slice";

@@ -4,6 +4,8 @@ const CustomSelectContainer = styled.div`
   position: relative;
   font-family: inherit;
   width: 80px;
+  border: 1px solid ${(props) => props.theme.colors.card_border};
+  border-radius: 4px;
 `;
 
 const SelectElement = styled.select`
@@ -13,7 +15,6 @@ const SelectElement = styled.select`
 const SelectSelected = styled.div`
   color: inherit;
   padding: 8px 16px;
-  border: 1px solid ${(props) => props.theme.colors.cart_border};
   border-color: transparent transparent
     ${(props) => props.theme.colors.cart_border} transparent;
   cursor: pointer;
@@ -24,7 +25,7 @@ const SelectSelected = styled.div`
   &:after {
     position: absolute;
     content: "";
-    top: 14px;
+    top: 17px;
     right: 14px;
     width: 0;
     height: 0;
@@ -37,7 +38,7 @@ const SelectSelected = styled.div`
   &.select-arrow-active:after {
     border-color: transparent transparent ${(props) => props.theme.colors.fg}
       transparent;
-    top: 7px;
+    top: 10px;
   }
 `;
 
@@ -59,7 +60,7 @@ const SelectItems = styled.div.withConfig({
   div {
     color: inherit;
     padding: 8px 16px;
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
     cursor: pointer;
     user-select: none;

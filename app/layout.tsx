@@ -1,5 +1,4 @@
 import React from "react";
-import { Afacad } from "next/font/google";
 import StyledComponentsRegistry from "@/app/_lib/registry";
 import { ReduxStoreProvider } from "./_providers/redux-store-provider";
 
@@ -8,8 +7,6 @@ export const metadata = {
   description: "This is ecommerse user dashboard",
 };
 
-const afacad = Afacad({ subsets: ["latin"] });
-
 export default function RootLayout({
   children,
 }: {
@@ -17,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={afacad.className} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <ReduxStoreProvider>
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </ReduxStoreProvider>

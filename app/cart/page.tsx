@@ -11,13 +11,19 @@ import {
 import {
   Button,
   CartRoot,
-  Input,
+  // Input,
   Form,
   OrderInfo,
   ProductsContainer,
+  WarnText,
+  Center,
 } from "./_styles/styled.cart";
 import { useAppDispatch, useAppSelector } from "../_store/store";
-import { addToCart, fetchCartProductsWithIds } from "../_slices/cart.slice";
+import {
+  addToCart,
+  fetchCartProductsWithIds,
+  updateCartProductsLoading,
+} from "../_slices/cart.slice";
 import { Loading } from "../_components/loading";
 import { Table } from "./_components/table";
 
@@ -25,6 +31,7 @@ import { Product } from "../_types/products.types";
 import { columns } from "./_components/columns";
 import { BodyCellLabelProps } from "./_components/table.types";
 import { checkout } from "../_slices/order.slice";
+import { Input } from "../_components/input/input";
 
 interface CartPriceInfo {
   [key: string]: number;
@@ -34,8 +41,8 @@ interface FormValues {
   name: string;
   email: string;
   contact: string;
-  addressLine_1: string;
-  addressLine_2: string;
+  alternateNumber: string;
+  streetAddress: string;
   city: string;
   postalCode: string;
   state: string;
@@ -46,8 +53,8 @@ const initialFormValues = {
   name: "",
   email: "",
   contact: "",
-  addressLine_1: "",
-  addressLine_2: "",
+  alternateNumber: "",
+  streetAddress: "",
   city: "",
   postalCode: "",
   state: "",
@@ -68,7 +75,7 @@ const Cart = () => {
   const onInputChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     setFormValues((prevValues) => ({
       ...prevValues,
-      [evt.target.name]: evt.target.value.trim(),
+      [evt.target.name]: evt.target.value,
     }));
   }, []);
 
@@ -78,7 +85,7 @@ const Cart = () => {
       const cartItems = selectedProductToPurchase.reduce((acc, curr) => {
         return (acc = { ...acc, [curr]: cartPriceInfo[curr] });
       }, {});
-      dispatch(checkout({ ...formValues, cartItems }));
+      dispatch(checkout({ ...formValues, cartItems, isPaid: true }));
     },
     [dispatch, formValues, cartPriceInfo, selectedProductToPurchase]
   );
@@ -133,6 +140,8 @@ const Cart = () => {
     if (initialRef.current && cartItems.length > 0) {
       dispatch(fetchCartProductsWithIds(cartItems));
       initialRef.current = false;
+    } else {
+      dispatch(updateCartProductsLoading(false));
     }
   }, [dispatch, cartItems]);
 
@@ -145,16 +154,18 @@ const Cart = () => {
       !formValues.name ||
       !formValues.email ||
       !formValues.contact ||
-      !formValues.addressLine_1 ||
+      !formValues.alternateNumber ||
+      !formValues.streetAddress ||
       !formValues.city ||
       !formValues.postalCode ||
       !formValues.state ||
-      !formValues.country
+      !formValues.country ||
+      !selectedProductToPurchase.length
     ) {
       return true;
     } else return false;
   }, [
-    formValues.addressLine_1,
+    formValues.alternateNumber,
     formValues.city,
     formValues.contact,
     formValues.country,
@@ -162,6 +173,8 @@ const Cart = () => {
     formValues.name,
     formValues.postalCode,
     formValues.state,
+    formValues.streetAddress,
+    selectedProductToPurchase.length,
   ]);
 
   if (products.isLoading) {
@@ -170,10 +183,10 @@ const Cart = () => {
 
   return (
     <CartRoot>
-      {cartProducts.length > 0 ? (
+      {cartProducts.length > 0 && (
         <>
           <ProductsContainer className="custom-scrollbar">
-            <h3>CART</h3>
+            <Center>CART</Center>
             <Table<Product>
               data={cartProducts}
               columns={columns}
@@ -182,95 +195,94 @@ const Cart = () => {
             />
           </ProductsContainer>
           <OrderInfo>
-            <h3>ORDER INFORMATION</h3>
+            <Center>ORDER INFORMATION</Center>
             <Form onSubmit={onSubmit}>
               <Input
-                warn={!formValues.name}
+                required
                 name="name"
                 autoComplete="on"
                 value={formValues.name}
                 onChange={onInputChange}
-                placeholder="Name *"
+                placeholder="Name"
               />
               <Input
-                warn={!formValues.email}
+                required
                 name="email"
                 autoComplete="on"
                 value={formValues.email}
                 onChange={onInputChange}
-                placeholder="Email *"
+                placeholder="Email"
               />
               <Input
-                warn={!formValues.contact}
+                required
                 type="number"
                 name="contact"
                 autoComplete="on"
                 value={formValues.contact}
                 onChange={onInputChange}
-                placeholder="Mobile number *"
+                placeholder="Mobile number"
               />
               <Input
-                warn={!formValues.addressLine_1}
-                name="addressLine_1"
+                required
+                type="number"
+                name="alternateNumber"
                 autoComplete="on"
-                value={formValues.addressLine_1}
+                value={formValues.alternateNumber}
                 onChange={onInputChange}
-                placeholder="Address line 1 *"
+                placeholder="Alternate Number"
               />
               <Input
-                name="addressLine_2"
+                required
+                name="streetAddress"
                 autoComplete="on"
-                value={formValues.addressLine_2}
+                value={formValues.streetAddress}
                 onChange={onInputChange}
-                placeholder="Address line 2 *"
+                placeholder="Streed Address"
               />
               <Input
-                warn={!formValues.city}
+                required
                 name="city"
                 autoComplete="on"
                 value={formValues.city}
                 onChange={onInputChange}
-                placeholder="City *"
+                placeholder="City"
               />
               <Input
-                warn={!formValues.postalCode}
+                required
                 type="number"
                 name="postalCode"
                 autoComplete="on"
                 value={formValues.postalCode}
                 onChange={onInputChange}
-                placeholder="Postal code *"
+                placeholder="Postal code"
               />
               <Input
-                warn={!formValues.state}
+                required
                 name="state"
                 autoComplete="on"
                 value={formValues.state}
                 onChange={onInputChange}
-                placeholder="State *"
+                placeholder="State"
               />
               <Input
-                warn={!formValues.country}
+                required
                 name="country"
                 autoComplete="on"
                 value={formValues.country}
                 onChange={onInputChange}
-                placeholder="Country *"
+                placeholder="Country"
               />
-              <Button type="submit" disabled={isErrorVisible}>
-                Continue payment
-              </Button>
+              <WarnText show={isErrorVisible}>
+                {selectedProductToPurchase.length > 0
+                  ? "All fields marked with * are required"
+                  : "Select atleast one product to purchase"}
+              </WarnText>
+              <Button type="submit">Continue payment</Button>
             </Form>
           </OrderInfo>
         </>
-      ) : (
-        <>
-          <ProductsContainer>
-            <h3>CART</h3>
-            Your cart is empty
-          </ProductsContainer>
-        </>
       )}
+      {!cartProducts.length && <Center>Your cart is empty</Center>}
     </CartRoot>
   );
 };

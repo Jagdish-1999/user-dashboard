@@ -11,7 +11,7 @@ import {
 import { useTheme } from "../theme-providers";
 import { CartIcon } from "@/app/_icons/cart";
 import { WishlistIcon } from "@/app/_icons/wishlist";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { fetchWishlistProducts } from "@/app/_slices/wishlist.slice";
 import { fetchCartProducts } from "@/app/_slices/cart.slice";
 import { usePathname } from "next/navigation";
@@ -19,13 +19,14 @@ import { usePathname } from "next/navigation";
 const Navbar = () => {
   const path = usePathname();
   const initialRender = useRef(true);
+  const countRef = useRef({ cartCount: 0, wishlistCount: 0 });
   const dispatch = useAppDispatch();
   const { toggleTheme, isDarkMode } = useTheme();
 
-  const { data: cartItems } = useAppSelector((state) => state.cart);
-  const { data: wishlistItems } = useAppSelector((state) => state.wishlist);
-  const cartCount = cartItems.length;
-  const wishlistCount = wishlistItems.length;
+  const cartItems = useAppSelector((state) => state.cart.data);
+  const wishlistItems = useAppSelector((state) => state.wishlist.data);
+  countRef.current.cartCount = cartItems.length;
+  countRef.current.wishlistCount = wishlistItems.length;
 
   useEffect(() => {
     if (initialRender.current) {
@@ -68,6 +69,9 @@ const Navbar = () => {
         <StyledLink href="/categories" isActive={path === "/categories"}>
           Categories
         </StyledLink>
+        <StyledLink href="/orders" isActive={path === "/orders"}>
+          Orders
+        </StyledLink>
         <StyledLink href="/account" isActive={path === "/account"}>
           Account
         </StyledLink>
@@ -78,8 +82,12 @@ const Navbar = () => {
             height="20px"
           />
           Wishlist
-          {wishlistCount > 0 && (
-            <Count>{wishlistCount > 9 ? "9+" : wishlistCount}</Count>
+          {countRef.current.wishlistCount > 0 && (
+            <Count>
+              {countRef.current.wishlistCount > 9
+                ? "9+"
+                : countRef.current.wishlistCount}
+            </Count>
           )}
         </StyledLink>
         <StyledLink href="/cart" isActive={path === "/cart"}>
@@ -89,7 +97,13 @@ const Navbar = () => {
             height="18px"
           />
           Cart
-          {cartCount > 0 && <Count>{cartCount > 9 ? "9+" : cartCount}</Count>}
+          {countRef.current.cartCount > 0 && (
+            <Count>
+              {countRef.current.cartCount > 9
+                ? "9+"
+                : countRef.current.cartCount}
+            </Count>
+          )}
         </StyledLink>
       </Links>
     </RootNavbar>

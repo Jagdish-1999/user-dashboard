@@ -59,6 +59,9 @@ const cartSlice = createSlice({
     updateCartProducts(state, action: PayloadAction<Product[]>) {
       state.products.data = action.payload;
     },
+    updateCartProductsLoading(state, action: PayloadAction<boolean>) {
+      state.products.isLoading = action.payload;
+    },
   },
 
   extraReducers(builder) {
@@ -95,6 +98,7 @@ const cartSlice = createSlice({
 
 export { fetchCartProducts, fetchCartProductsWithIds, addToCart };
 
-export const { updateCart, updateCartProducts } = cartSlice.actions;
+export const { updateCart, updateCartProducts, updateCartProductsLoading } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const rootStyles = css`
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100% - 76px);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,5 +1,6 @@
 "use client";
 import { createGlobalStyle } from "styled-components";
+import "../fonts.css";
 
 const GlobalStyles = createGlobalStyle`
 html,body {
@@ -14,6 +15,7 @@ html,body {
 body {
     background-color: ${(props) => props.theme.colors.bg};
     color: ${(props) => props.theme.colors.fg};
+    font-family: Afacad;
     transition: all 0.3s;
 }
 .custom-scrollbar::-webkit-scrollbar {
@@ -59,6 +61,11 @@ body {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1; 
+}
+
+.line-clamp-5 {
+  -webkit-line-clamp: 5; 
+
 }
 `;
 

@@ -7,6 +7,7 @@ import { fetchProducts } from "../_slices/product.slice";
 import { HomeRoot, ProductsContainer } from "../_styles/styled-home";
 import { FeaturedProduct } from "../_components/product-card/featured-product";
 import { Card } from "../_components/product-card/card";
+import { Center } from "../wishlist/_styles/styled.wishlist";
 
 const Products = () => {
   const initialRef = useRef(true);
@@ -30,11 +31,13 @@ const Products = () => {
   return (
     <HomeRoot>
       <ProductsContainer className="custom-scrollbar">
-        <FeaturedProduct product={products[5]} />
-        {products.map((product) => (
-          <Card key={product._id} product={product} />
-        ))}
+        {products[0] && <FeaturedProduct product={products[0]} />}
+        {products.length > 0 &&
+          products.map((product) => (
+            <Card key={product._id} product={product} />
+          ))}
       </ProductsContainer>
+      {!products.length && <Center>No products found</Center>}
     </HomeRoot>
   );
 };

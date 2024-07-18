@@ -63,6 +63,9 @@ const wishlistSlice = createSlice({
     updateWishlistProducts(state, action: PayloadAction<Product[]>) {
       state.products.data = action.payload;
     },
+    updateWishlistProductsLoading(state, action: PayloadAction<boolean>) {
+      state.products.isLoading = action.payload;
+    },
   },
 
   extraReducers(builder) {
@@ -96,6 +99,10 @@ const wishlistSlice = createSlice({
   },
 });
 
-export const { updateWishlist, updateWishlistProducts } = wishlistSlice.actions;
+export const {
+  updateWishlist,
+  updateWishlistProducts,
+  updateWishlistProductsLoading,
+} = wishlistSlice.actions;
 
 export default wishlistSlice.reducer;

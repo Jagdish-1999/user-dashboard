@@ -15,6 +15,7 @@ const CardRoot = styled.div`
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.colors.card_border};
   transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  background-color: ${(props) => props.theme.colors.nav_bg};
 
   &:hover {
     border: 1px solid ${(props) => props.theme.colors.card_hover_border};
@@ -60,6 +61,7 @@ const CardContainer = styled(Link)`
   color: inherit;
   text-decoration: none;
   border-top: 1px solid ${(props) => props.theme.colors.card_border};
+  width: 100%;
 `;
 
 const TitleWrapper = styled.div`
@@ -68,6 +70,9 @@ const TitleWrapper = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
+  width: 100%;
+  font-family: "DM Sans";
+  font-size: 14px;
 `;
 
 const Title = styled.h4`
@@ -77,14 +82,13 @@ const Title = styled.h4`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-
   color: ${(props) => props.theme.colors.product_title};
 `;
 
 const Price = styled.h4`
   display: flex;
   gap: 2px;
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 export {

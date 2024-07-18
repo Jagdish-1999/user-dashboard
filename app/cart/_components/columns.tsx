@@ -1,4 +1,3 @@
-import { DeleteIcon } from "@/app/_icons/delete";
 import {
   BodyCellLabelProps,
   ColumnTypes,
@@ -10,108 +9,93 @@ import styled, { css } from "styled-components";
 import { ImageSlider } from "@/app/_components/image-slider/image-slider";
 import { CheckBox } from "@/app/_components/checkbox/checkbox";
 import { Select } from "@/app/_components/select/select";
+import { CartIcon } from "@/app/_icons/cart";
 
-const customStyles = css`
+const imageSliderStyles = css`
   border: 1px solid ${(props) => props.theme.colors.card_border};
-  border-radius: 8px;
+  border-radius: 4px;
+  width: 120px;
+  height: 120px;
 `;
 
 const headStyles = css`
   pointer-events: none;
-  color: ${(props) => props.theme.colors.cart_table_head_fg};
-  text-transform: uppercase;
-  padding: 1rem 1.7rem;
+  user-select: none;
+  padding-block: 0.5rem;
   font-weight: 800;
+  width: 100%;
 `;
 
 const itemStyle = css`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  height: 261.5px;
-  padding: 1rem 1.7rem;
+  justify-content: center;
+  height: 120px;
+  padding-block: 2rem;
+  width: 100%;
 `;
 
-const CheckboxContainer = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "isHeadLabel",
-})<{ isHeadLabel?: boolean }>`
-  ${({ isHeadLabel }) => (isHeadLabel ? headStyles : itemStyle)}
-  ${({ isHeadLabel }) =>
-    isHeadLabel &&
+const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["head", "checkbox", "center", "price"].includes(prop),
+})<{ head?: boolean; checkbox?: boolean; center?: boolean; price?: boolean }>`
+  cursor: default;
+  ${({ head }) => (head ? headStyles : itemStyle)}
+  ${({ checkbox }) =>
+    checkbox &&
     css`
-      height: 53.5px;
+      & span {
+        top: -2px;
+      }
+    `}
+
+  ${({ center }) =>
+    center &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `}
+
+  ${({ price }) =>
+    price &&
+    css`
+      font-family: DM Sans;
+      font-size: 14px;
     `}
 `;
 
-const ProductContainer = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "isHeadLabel",
-})<{ isHeadLabel?: boolean }>`
-  ${({ isHeadLabel }) => (isHeadLabel ? headStyles : css``)}
-  padding:1rem 2rem;
+const ProductContainer = styled.div`
+  padding-inline: 8px;
+  font-family: inherit;
 `;
 
-const QuantityLabel = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "isHeadLabel",
-})<{ isHeadLabel?: boolean }>`
-  ${({ isHeadLabel }) => (isHeadLabel ? headStyles : itemStyle)}
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-`;
-
-const PriceLabel = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "isHeadLabel",
-})<{ isHeadLabel?: boolean }>`
-  ${({ isHeadLabel }) => (isHeadLabel ? headStyles : itemStyle)}
-`;
-
-const ProductNameLabel = styled.div`
-  max-width: 200px;
-  margin-top: 0.5rem;
-`;
-
-const DeleteLabel = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "isHeadLabel",
-})<{ isHeadLabel?: boolean }>`
-  ${({ isHeadLabel }) => (isHeadLabel ? headStyles : itemStyle)}
-  ${({ isHeadLabel }) =>
-    isHeadLabel &&
-    css`
-      height: 53.5px;
-    `} 
-    width: 80.33px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-`;
-
-const Delete = styled(DeleteIcon)`
+const Cart = styled(CartIcon)`
   cursor: pointer;
   transition: all 0.3s;
   border-radius: 50%;
   padding: 4px;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
 
   &:hover {
-    background-color: #ff000033;
+    background-color: #d30c9144;
   }
 `;
 
 const columns = [
+  // CHECKBOX
   {
-    width: "fit-content",
+    width: "40px",
     id: "checkbox",
     accessKey: "checkbox",
     extraKeys: {},
     headCellLabel() {
-      return <CheckboxContainer isHeadLabel></CheckboxContainer>;
+      return <Container head></Container>;
     },
     bodyCellLabel({ product, onCellClick }) {
       return (
-        <CheckboxContainer>
+        <Container checkbox>
           <CheckBox
             name="checkbox"
             onChange={(evt) => {
@@ -119,32 +103,57 @@ const columns = [
               onCellClick?.({ product, column: this });
             }}
           />
-        </CheckboxContainer>
+        </Container>
       );
     },
   },
+  // IMAGES
   {
-    width: "45%",
-    id: "name",
-    accessKey: "name",
+    width: "22%",
+    id: "images",
+    accessKey: "images",
     headCellLabel: () => (
-      <ProductContainer isHeadLabel>Product name</ProductContainer>
+      <Container center head>
+        Images
+      </Container>
     ),
     bodyCellLabel: function ({ product }: BodyCellLabelProps<Product>) {
       return (
-        <ProductContainer>
-          <ImageSlider images={product.images} styles={customStyles} />
-          <ProductNameLabel className="truncate">{`${product[this.accessKey]}`}</ProductNameLabel>
-        </ProductContainer>
+        <Container center>
+          <ImageSlider images={product.images} styles={imageSliderStyles} />
+        </Container>
       );
     },
   },
+  // PRODUCT NAME
   {
-    width: "20%",
+    width: "40%",
+    id: "name",
+    accessKey: "name",
+    headCellLabel: () => (
+      <Container center head>
+        Product name
+      </Container>
+    ),
+    bodyCellLabel: function ({ product }: BodyCellLabelProps<Product>) {
+      return (
+        <Container>
+          <ProductContainer className="truncate line-clamp-5">{`${product[this.accessKey]}`}</ProductContainer>
+        </Container>
+      );
+    },
+  },
+  //QUANTITY
+  {
+    width: "15%",
     id: "quantity",
     accessKey: "quantity",
     extraKeys: {},
-    headCellLabel: () => <QuantityLabel isHeadLabel>Quantity</QuantityLabel>,
+    headCellLabel: () => (
+      <Container center head>
+        Quantity
+      </Container>
+    ),
     bodyCellLabel: function Cell({
       product,
       onCellClick,
@@ -155,7 +164,7 @@ const columns = [
       };
 
       return (
-        <QuantityLabel>
+        <Container center>
           <Select<SelectedOptionTypes>
             name="select"
             onChange={onChange}
@@ -164,39 +173,45 @@ const columns = [
               value: `${i + 1}`,
             }))}
           />
-        </QuantityLabel>
+        </Container>
       );
     },
   },
+  // PRICE
   {
-    width: "20%",
+    width: "15%",
     id: "price",
     accessKey: "price",
-    headCellLabel: () => <PriceLabel isHeadLabel>Price</PriceLabel>,
+    headCellLabel: () => (
+      <Container center head>
+        Price
+      </Container>
+    ),
     bodyCellLabel: function ({ product }) {
       return (
-        <PriceLabel>
+        <Container center price>
           &#x20B9;
           {`${product["cartPrice" as keyof Product] || product[this.accessKey]}`}
-        </PriceLabel>
+        </Container>
       );
     },
   },
+  // CART ICON
   {
-    width: "fit-content",
-    id: "delete",
-    accessKey: "delete",
-    headCellLabel: () => <DeleteLabel isHeadLabel></DeleteLabel>,
+    width: "50px",
+    id: "cart",
+    accessKey: "cart",
+    headCellLabel: () => <Container center head></Container>,
     bodyCellLabel: function ({ product, onCellClick }) {
       return (
-        <DeleteLabel>
-          <Delete
-            fill="red"
+        <Container center>
+          <Cart
+            fill="#d30c91"
             onClick={() => {
               onCellClick?.({ product, column: this });
             }}
           />
-        </DeleteLabel>
+        </Container>
       );
     },
   },

@@ -7,9 +7,11 @@ const checkout = createAsyncThunk(
   async (payload: any): Promise<Order[]> => {
     try {
       const { data }: { data: AxiosResponse<Order[]> } = await axios.post(
-        "/api/v1/products/checkout",
+        "/api/v1/orders/create",
         payload
       );
+
+      console.log("Order", data.data);
       return data.data;
     } catch (error: any) {
       console.log("Error", error.response);

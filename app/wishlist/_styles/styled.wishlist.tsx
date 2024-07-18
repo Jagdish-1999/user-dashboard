@@ -9,7 +9,7 @@ const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin-top: 1rem;
+  padding-top: 1rem;
 
   @media screen and (max-width: 1050px) {
     grid-template-columns: repeat(3, 1fr);
@@ -19,4 +19,14 @@ const ProductsContainer = styled.div`
   }
 `;
 
-export { ProductsContainer };
+const Center = styled.div`
+  display: flex;
+  gap: 1rem;
+  height: 100%;
+  width: 100%;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export { ProductsContainer, Center };

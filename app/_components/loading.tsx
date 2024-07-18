@@ -12,10 +12,15 @@ const Div = styled.div`
   background-color: inherit;
 
   img {
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
     transform: rotate3d(1, 1, 0, 3.142rad);
   }
+`;
+
+const Title = styled.h4`
+  padding-top: 4px;
+  color: ${(props) => props.theme.colors.loading_fg};
 `;
 
 const Loading = () => {
@@ -28,6 +33,7 @@ const Loading = () => {
         height={500}
         priority
       />
+      <Title>Loading</Title>
     </Div>
   );
 };

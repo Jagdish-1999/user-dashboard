@@ -2,10 +2,13 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../_store/store";
 import { HomeRoot } from "../_styles/styled-home";
-import { fetchWishlistProductsWithIds } from "../_slices/wishlist.slice";
+import {
+  fetchWishlistProductsWithIds,
+  updateWishlistProductsLoading,
+} from "../_slices/wishlist.slice";
 import { Card } from "../_components/product-card/card";
 import { Loading } from "../_components/loading";
-import { ProductsContainer } from "./_styles/styled.wishlist";
+import { Center, ProductsContainer } from "./_styles/styled.wishlist";
 
 const Wishlist = () => {
   const initialRef = useRef(true);
@@ -19,6 +22,8 @@ const Wishlist = () => {
     if (initialRef.current && wishlistItems.length > 0) {
       dispatch(fetchWishlistProductsWithIds(wishlistItems));
       initialRef.current = false;
+    } else {
+      dispatch(updateWishlistProductsLoading(false));
     }
   }, [dispatch, wishlistItems]);
 
@@ -29,10 +34,12 @@ const Wishlist = () => {
   return (
     <HomeRoot>
       <ProductsContainer className="custom-scrollbar">
-        {products.data.map((product) => (
-          <Card key={product._id} product={product} />
-        ))}
+        {products.data.length > 0 &&
+          products.data.map((product) => (
+            <Card key={product._id} product={product} />
+          ))}
       </ProductsContainer>
+      {!products.data.length && <Center>Your wishlist is empty</Center>}
     </HomeRoot>
   );
 };

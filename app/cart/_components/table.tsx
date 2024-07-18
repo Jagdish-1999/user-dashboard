@@ -14,7 +14,7 @@ const Table = <T extends { _id: string }>({
   return (
     <StyledTable>
       <Thead>
-        <Tr>
+        <Tr head>
           {columns.map((column) => (
             <Td key={column.id} width={column.width} height={column.height}>
               {column.headCellLabel()}
@@ -22,10 +22,12 @@ const Table = <T extends { _id: string }>({
           ))}
         </Tr>
       </Thead>
-      <Tbody>
-        {data.map((product) => (
+      <Tbody className="custom-scrollbar">
+        <Tr empty></Tr>
+        {data.map((product, idx) => (
           <Tr
             key={product._id}
+            even={idx % 2 === 0}
             highlightRow={highlightRows?.includes(product._id)}
           >
             {columns.map((column) => (
