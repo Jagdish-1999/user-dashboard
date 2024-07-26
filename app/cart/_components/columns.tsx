@@ -79,7 +79,7 @@ const Cart = styled(CartIcon)`
   height: 30px;
 
   &:hover {
-    background-color: #d30c9144;
+    background-color: ${(props) => props.theme.colors.cart_icon_hover};
   }
 `;
 

@@ -3,6 +3,15 @@ import { createGlobalStyle } from "styled-components";
 import "../fonts.css";
 
 const GlobalStyles = createGlobalStyle`
+:root {
+  --padding-2:2px;
+  --padding-4:4px;
+  --padding-6:6px;
+  --padding-8:8px;
+  --padding-10:10px;
+  --padding-12:12px;
+  --padding-14:14px;
+}
 html,body {
     width: 100%;
     height: 100%;

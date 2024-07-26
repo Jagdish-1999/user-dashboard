@@ -1,9 +1,7 @@
-import { CartIcon } from "@/app/_icons/cart";
-import { WishlistIcon } from "@/app/_icons/wishlist";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 
-const CardRoot = styled.div`
+const CardRoot = styled(Link)`
   position: relative;
   cursor: pointer;
   display: flex;
@@ -13,13 +11,10 @@ const CardRoot = styled.div`
   max-width: 300px;
   max-height: 300px;
   border-radius: 8px;
-  border: 1px solid ${(props) => props.theme.colors.card_border};
   transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
   background-color: ${(props) => props.theme.colors.nav_bg};
-
-  &:hover {
-    border: 1px solid ${(props) => props.theme.colors.card_hover_border};
-  }
+  color: inherit;
+  text-decoration: none;
 `;
 
 const iconStyle = css`
@@ -33,17 +28,22 @@ const iconStyle = css`
   z-index: 2;
   transition: all 0.2s;
   border-radius: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.card_border};
+    background-color: ${(props) => props.theme.colors.cart_icon_hover};
   }
 `;
-const Wishlist = styled(WishlistIcon)`
+
+const ButtonWishlist = styled.button`
   ${iconStyle}
 `;
 
-const Cart = styled(CartIcon)`
-  ${iconStyle}
+const ButtonCart = styled.button`
+  ${iconStyle};
   top: 2.1rem;
 `;
 
@@ -57,9 +57,7 @@ const SlideWrapper = styled.div`
   padding: 1rem 0;
 `;
 
-const CardContainer = styled(Link)`
-  color: inherit;
-  text-decoration: none;
+const CardContainer = styled.div`
   border-top: 1px solid ${(props) => props.theme.colors.card_border};
   width: 100%;
 `;
@@ -93,8 +91,8 @@ const Price = styled.h4`
 
 export {
   CardRoot,
-  Wishlist,
-  Cart,
+  ButtonWishlist,
+  ButtonCart,
   SlideWrapper,
   CardContainer,
   TitleWrapper,

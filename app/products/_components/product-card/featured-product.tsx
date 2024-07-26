@@ -13,8 +13,8 @@ import {
   Wishlist,
 } from "./styled.featured-product";
 
-import { ImageSlider } from "../image-slider/image-slider";
-import { useTheme } from "../theme-providers";
+import { ImageSlider } from "../../../_components/image-slider/image-slider";
+import { useTheme } from "../../../_components/theme-providers";
 import { addToWishlist } from "@/app/_slices/wishlist.slice";
 import { addToCart } from "@/app/_slices/cart.slice";
 import { useAppDispatch, useAppSelector } from "@/app/_store/store";

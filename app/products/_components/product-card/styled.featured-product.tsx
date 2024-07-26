@@ -12,15 +12,7 @@ const ProductWrapper = styled.div`
   border-radius: 4px;
   padding: 1rem;
   grid-column: 1/-1;
-  margin-top: 1rem;
-  transition: all 0.2s;
   background-color: ${(props) => props.theme.colors.nav_bg};
-  border: 1px solid ${(props) => props.theme.colors.card_border};
-
-  &:hover {
-    transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
-    border: 1px solid ${(props) => props.theme.colors.card_hover_border};
-  }
 `;
 
 const DescriptionWrapper = styled.div`

@@ -2,22 +2,23 @@ import styled, { css } from "styled-components";
 
 export const rootStyles = css`
   width: 100%;
-  height: calc(100% - 76px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 8rem;
 
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     padding: 0 4rem;
   }
   @media screen and (max-width: 850px) {
     padding: 0 2rem;
-  }
+  } */
 `;
 
-const HomeRoot = styled.div`
+const ProductsRoot = styled.div`
   ${rootStyles}
+  padding: var(--padding-12);
+  padding-right: 0;
 `;
 
 const ProductsContainer = styled.div`
@@ -25,10 +26,10 @@ const ProductsContainer = styled.div`
   width: 100%;
   max-height: 100%;
   height: fit-content;
-  padding: 0 0.5rem;
+  padding-right: var(--padding-10);
+  gap: var(--padding-12);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
 
   @media screen and (max-width: 1050px) {
     grid-template-columns: repeat(3, 1fr);
@@ -38,4 +39,4 @@ const ProductsContainer = styled.div`
   }
 `;
 
-export { HomeRoot, ProductsContainer };
+export { ProductsRoot, ProductsContainer };

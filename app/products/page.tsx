@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { Loading } from "../_components/loading";
 import { useAppDispatch, useAppSelector } from "../_store/store";
 import { fetchProducts } from "../_slices/product.slice";
-import { HomeRoot, ProductsContainer } from "../_styles/styled-home";
-import { FeaturedProduct } from "../_components/product-card/featured-product";
-import { Card } from "../_components/product-card/card";
+import { FeaturedProduct } from "./_components/product-card/featured-product";
+import { Card } from "./_components/product-card/card";
 import { Center } from "../wishlist/_styles/styled.wishlist";
+import { ProductsContainer, ProductsRoot } from "./_styles/styled.products";
 
 const Products = () => {
   const initialRef = useRef(true);
@@ -29,7 +29,7 @@ const Products = () => {
   }
 
   return (
-    <HomeRoot>
+    <ProductsRoot>
       <ProductsContainer className="custom-scrollbar">
         {products[0] && <FeaturedProduct product={products[0]} />}
         {products.length > 0 &&
@@ -38,7 +38,7 @@ const Products = () => {
           ))}
       </ProductsContainer>
       {!products.length && <Center>No products found</Center>}
-    </HomeRoot>
+    </ProductsRoot>
   );
 };
 
