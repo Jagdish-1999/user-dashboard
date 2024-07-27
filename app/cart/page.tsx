@@ -17,6 +17,8 @@ import {
   ProductsContainer,
   WarnText,
   Center,
+  TotalPrice,
+  PriceSymbol,
 } from "./_styles/styled.cart";
 import { useAppDispatch, useAppSelector } from "../_store/store";
 import {
@@ -69,6 +71,7 @@ const Cart = () => {
   >([]);
   const { data: cartItems, products } = useAppSelector((state) => state.cart);
   const [cartProducts, setCartProducts] = useState<Product[]>(products.data);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [cartPriceInfo, setCartPriceInfo] = useState<CartPriceInfo>({});
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
@@ -111,7 +114,7 @@ const Cart = () => {
           }
           break;
         }
-        case "delete": {
+        case "cart": {
           dispatch(addToCart(product._id));
           setSelectedProductToPurchase((prev) =>
             prev.filter((p) => p !== product._id)
@@ -140,14 +143,26 @@ const Cart = () => {
     if (initialRef.current && cartItems.length > 0) {
       dispatch(fetchCartProductsWithIds(cartItems));
       initialRef.current = false;
-    } else {
-      dispatch(updateCartProductsLoading(false));
     }
+    // else {
+    // dispatch(updateCartProductsLoading(false));
+    // }
   }, [dispatch, cartItems]);
 
   useEffect(() => {
     setCartProducts(products.data);
   }, [products.data]);
+
+  useEffect(() => {
+    setTotalPrice(
+      cartProducts.reduce((acc, curr) => {
+        if (selectedProductToPurchase.includes(curr._id)) {
+          acc += curr.price;
+        }
+        return acc;
+      }, 0)
+    );
+  }, [cartProducts, selectedProductToPurchase]);
 
   const isErrorVisible = useMemo(() => {
     if (
@@ -186,7 +201,12 @@ const Cart = () => {
       {cartProducts.length > 0 && (
         <>
           <ProductsContainer className="custom-scrollbar">
-            <Center>CART</Center>
+            <TotalPrice>
+              <Center>CART</Center>
+              <Center>
+                Total: <PriceSymbol>&#x20B9; </PriceSymbol> {totalPrice}
+              </Center>
+            </TotalPrice>
             <Table<Product>
               data={cartProducts}
               columns={columns}
@@ -282,7 +302,9 @@ const Cart = () => {
           </OrderInfo>
         </>
       )}
-      {!cartProducts.length && <Center>Your cart is empty</Center>}
+      {!cartProducts.length && !products.isLoading && (
+        <Center>Your cart is empty</Center>
+      )}
     </CartRoot>
   );
 };

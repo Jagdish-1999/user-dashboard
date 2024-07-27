@@ -4,9 +4,11 @@ import wishlistSlice from "@/app/_slices/wishlist.slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useSelector, useDispatch } from "react-redux";
 import orderSlice from "../_slices/order.slice";
+import productDetailsSlice from "../_slices/product-details.slice";
 
 const rootReducers = combineReducers({
   products: productSlice,
+  productDetails: productDetailsSlice,
   wishlist: wishlistSlice,
   cart: cartSlice,
   order: orderSlice,

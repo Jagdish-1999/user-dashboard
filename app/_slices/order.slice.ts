@@ -11,7 +11,6 @@ const checkout = createAsyncThunk(
         payload
       );
 
-      console.log("Order", data.data);
       return data.data;
     } catch (error: any) {
       console.log("Error", error.response);

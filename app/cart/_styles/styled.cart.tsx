@@ -31,6 +31,16 @@ const OrderInfo = styled.div`
   gap: 0.5rem;
 `;
 
+const TotalPrice = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PriceSymbol = styled.span`
+  font-family: "DM Sans";
+  padding-inline: var(--padding-2);
+`;
+
 const Center = styled.h3`
   display: flex;
   align-items: center;
@@ -94,6 +104,8 @@ export {
   CartRoot,
   ProductsContainer,
   OrderInfo,
+  TotalPrice,
+  PriceSymbol,
   Center,
   Form,
   Input,

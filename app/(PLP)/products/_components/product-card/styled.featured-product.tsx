@@ -49,7 +49,7 @@ const buttonStyle = css<{ $variant?: "outlined" | "normal" }>`
   cursor: pointer;
   padding: 0.5rem;
   border: none;
-  border-radius: 2px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;

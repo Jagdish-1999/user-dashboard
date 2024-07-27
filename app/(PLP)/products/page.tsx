@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Loading } from "../_components/loading";
-import { useAppDispatch, useAppSelector } from "../_store/store";
-import { fetchProducts } from "../_slices/product.slice";
+import { Loading } from "../../_components/loading";
+import { useAppDispatch, useAppSelector } from "../../_store/store";
+import { fetchProducts } from "../../_slices/product.slice";
 import { FeaturedProduct } from "./_components/product-card/featured-product";
 import { Card } from "./_components/product-card/card";
-import { Center } from "../wishlist/_styles/styled.wishlist";
+import { Center } from "../../wishlist/_styles/styled.wishlist";
 import { ProductsContainer, ProductsRoot } from "./_styles/styled.products";
 
 const Products = () => {

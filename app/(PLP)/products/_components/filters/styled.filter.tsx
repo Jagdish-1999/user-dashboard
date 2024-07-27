@@ -11,5 +11,8 @@ const FilterWrapper = styled.div`
   padding: var(--padding-12);
 `;
 
-const ChildrenWrapper = styled.div``;
+const ChildrenWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 export { Container, FilterWrapper, ChildrenWrapper };

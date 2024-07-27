@@ -13,8 +13,8 @@ import {
   Wishlist,
 } from "./styled.featured-product";
 
-import { ImageSlider } from "../../../_components/image-slider/image-slider";
-import { useTheme } from "../../../_components/theme-providers";
+import { ImageSlider } from "../../../../_components/image-slider/image-slider";
+import { useTheme } from "../../../../_components/theme-providers";
 import { addToWishlist } from "@/app/_slices/wishlist.slice";
 import { addToCart } from "@/app/_slices/cart.slice";
 import { useAppDispatch, useAppSelector } from "@/app/_store/store";
@@ -31,7 +31,7 @@ const FeaturedProduct = ({ product }: { product: Product }) => {
         <Title>{product.name}</Title>
         <Description>{product.description}</Description>
         <ButtonWrapper>
-          <ButtonLink href={`/products/${product._id}`} $variant="outlined">
+          <ButtonLink href={`/${product._id}`} $variant="outlined">
             Read more
           </ButtonLink>
           <Button

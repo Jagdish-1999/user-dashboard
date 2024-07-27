@@ -73,7 +73,6 @@ const cartSlice = createSlice({
       (state, action: PayloadAction<string[]>) => {
         state.data = action.payload;
         state.isLoading = false;
-        state.products.isLoading = false;
       }
     );
     builder.addCase(fetchCartProducts.rejected, (state) => {

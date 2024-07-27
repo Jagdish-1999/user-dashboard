@@ -6,7 +6,7 @@ import {
   fetchWishlistProductsWithIds,
   updateWishlistProductsLoading,
 } from "../_slices/wishlist.slice";
-import { Card } from "../products/_components/product-card/card";
+import { Card } from "../(PLP)/products/_components/product-card/card";
 import { Loading } from "../_components/loading";
 import { Center, ProductsContainer } from "./_styles/styled.wishlist";
 

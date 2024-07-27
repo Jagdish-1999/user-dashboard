@@ -10,8 +10,8 @@ import {
   Title,
   TitleWrapper,
 } from "./styled.card";
-import { ImageSlider } from "../../../_components/image-slider/image-slider";
-import { useTheme } from "../../../_components/theme-providers";
+import { ImageSlider } from "../../../../_components/image-slider/image-slider";
+import { useTheme } from "../../../../_components/theme-providers";
 import { useAppDispatch, useAppSelector } from "@/app/_store/store";
 import { addToWishlist } from "@/app/_slices/wishlist.slice";
 import { addToCart } from "@/app/_slices/cart.slice";
@@ -27,7 +27,7 @@ const Card = ({ product }: { product: Product }) => {
   const cartItems = useAppSelector((state) => state.cart.data);
 
   return (
-    <CardRoot passHref href={`/products/${product._id}`}>
+    <CardRoot passHref href={`/${product._id}`}>
       <ButtonWishlist
         onClick={(evt) => {
           evt.preventDefault();

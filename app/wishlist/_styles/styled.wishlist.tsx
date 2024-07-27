@@ -9,7 +9,7 @@ const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  padding-top: 1rem;
+  margin-top: 1rem;
 
   @media screen and (max-width: 1050px) {
     grid-template-columns: repeat(3, 1fr);
