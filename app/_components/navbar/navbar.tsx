@@ -66,15 +66,15 @@ const Navbar = () => {
         <StyledLink href="/products" isActive={path === "/products"}>
           Products
         </StyledLink>
-        <StyledLink href="/categories" isActive={path === "/categories"}>
+        {/* <StyledLink href="/categories" isActive={path === "/categories"}>
           Categories
-        </StyledLink>
+        </StyledLink> */}
         <StyledLink href="/orders" isActive={path === "/orders"}>
           Orders
         </StyledLink>
-        <StyledLink href="/account" isActive={path === "/account"}>
+        {/* <StyledLink href="/account" isActive={path === "/account"}>
           Account
-        </StyledLink>
+        </StyledLink> */}
         <StyledLink href="/wishlist" isActive={path === "/wishlist"}>
           <WishlistIcon
             fill={isDarkMode ? "#ddd" : "#666"}

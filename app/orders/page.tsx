@@ -1,5 +1,13 @@
+"use client";
+
+import { Container, OrdersContainer } from "./_styles/styled.order";
+
 const Orders = () => {
-  return <div>Orders</div>;
+  return (
+    <Container>
+      <OrdersContainer>Orders</OrdersContainer>
+    </Container>
+  );
 };
 
 export default Orders;

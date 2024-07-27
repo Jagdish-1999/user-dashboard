@@ -29,7 +29,7 @@ import {
   PropertyLabel,
   PropertyValue,
   StyledImage,
-} from "./styles/styled.product-details";
+} from "./_styles/styled.product-details";
 import {
   Button,
   Cart,
