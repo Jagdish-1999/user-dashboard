@@ -1,3 +1,4 @@
+import { Profile } from "@/app/_icons/profile";
 import Image from "next/image";
 import Link from "next/link";
 import styled, { css } from "styled-components";
@@ -91,4 +92,27 @@ const StyledImage = styled(Image)`
   color: ${(props) => props.theme.colors.fg};
 `;
 
-export { RootNavbar, NavLogoContainer, Links, StyledLink, Count, StyledImage };
+const ProfileIcon = styled(Profile)`
+  border-radius: 50%;
+  padding: var(--padding-2);
+  border: 1px solid ${(props) => props.theme.colors.card_border};
+`;
+
+const Avatar = styled(Image)`
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  width: 35px;
+  height: 35px;
+`;
+
+export {
+  RootNavbar,
+  NavLogoContainer,
+  Links,
+  StyledLink,
+  Count,
+  StyledImage,
+  ProfileIcon,
+  Avatar,
+};

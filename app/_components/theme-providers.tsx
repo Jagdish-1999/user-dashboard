@@ -19,6 +19,7 @@ const ThemeProviders = ({ children }: { children: ReactNode }) => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
+    // Getting system default theme
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     setIsDarkMode(mediaQuery.matches);
 

@@ -7,14 +7,17 @@ import {
   Count,
   StyledImage,
   NavLogoContainer,
+  ProfileIcon,
+  Avatar,
 } from "./styled-navbar";
 import { useTheme } from "../theme-providers";
 import { CartIcon } from "@/app/_icons/cart";
 import { WishlistIcon } from "@/app/_icons/wishlist";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchWishlistProducts } from "@/app/_slices/wishlist.slice";
 import { fetchCartProducts } from "@/app/_slices/cart.slice";
 import { usePathname } from "next/navigation";
+import { Profile } from "@/app/_icons/profile";
 
 const Navbar = () => {
   const path = usePathname();
@@ -22,6 +25,7 @@ const Navbar = () => {
   const countRef = useRef({ cartCount: 0, wishlistCount: 0 });
   const dispatch = useAppDispatch();
   const { toggleTheme, isDarkMode } = useTheme();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const cartItems = useAppSelector((state) => state.cart.data);
   const wishlistItems = useAppSelector((state) => state.wishlist.data);
@@ -103,6 +107,18 @@ const Navbar = () => {
                 ? "9+"
                 : countRef.current.cartCount}
             </Count>
+          )}
+        </StyledLink>
+        <StyledLink href="#">
+          {!isLoggedIn ? (
+            <ProfileIcon fill={isDarkMode ? "#fff" : "#000"} />
+          ) : (
+            <Avatar
+              src="https://res.cloudinary.com/dwu9gpuhu/image/upload/v1719645358/ecommerse-admin/users/ddluzgekuz7b6sghflec.jpg"
+              alt="avatar"
+              width={500}
+              height={500}
+            />
           )}
         </StyledLink>
       </Links>
