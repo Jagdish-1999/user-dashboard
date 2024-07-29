@@ -1,53 +1,38 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { Order } from "../_types/order.types";
+import axios from "axios";
+import { Orders } from "../orders/_types/order.types";
 
-const checkout = createAsyncThunk(
-  "checkout",
-  async (payload: any): Promise<Order[]> => {
-    try {
-      const { data }: { data: AxiosResponse<Order[]> } = await axios.post(
-        "/api/v1/orders/create",
-        payload
-      );
-
-      return data.data;
-    } catch (error: any) {
-      console.log("Error", error.response);
-      return [];
-    }
+const fetchOrders = createAsyncThunk(
+  "fetchOrders",
+  async (): Promise<Orders[]> => {
+    const { data } = await axios.get("/api/v1/orders");
+    return data.data;
   }
 );
 
 const initialState = {
-  data: [] as Order[],
-  isLoading: false,
+  data: [] as Orders[],
+  isLoading: true,
 };
 
 const orderSlice = createSlice({
-  name: "order",
+  name: "orders",
   initialState,
   reducers: {},
-
   extraReducers(builder) {
-    builder.addCase(checkout.pending, (state) => {
-      state.isLoading = true;
-    }),
-      builder.addCase(
-        checkout.fulfilled,
-        (state, action: PayloadAction<Order[]>) => {
-          state.data = action.payload;
-          state.isLoading = false;
-        }
-      ),
-      builder.addCase(checkout.rejected, (state) => {
+    builder.addCase(
+      fetchOrders.fulfilled,
+      (state, action: PayloadAction<Orders[]>) => {
         state.isLoading = false;
-      });
+        state.data = action.payload;
+      }
+    );
+    builder.addCase(fetchOrders.rejected, (state) => {
+      state.isLoading = false;
+    });
   },
 });
 
-export { checkout };
-
+export { fetchOrders };
 export const {} = orderSlice.actions;
-
 export default orderSlice.reducer;

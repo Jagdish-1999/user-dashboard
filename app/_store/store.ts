@@ -11,7 +11,7 @@ const rootReducers = combineReducers({
   productDetails: productDetailsSlice,
   wishlist: wishlistSlice,
   cart: cartSlice,
-  order: orderSlice,
+  orders: orderSlice,
 });
 
 const store = configureStore({
