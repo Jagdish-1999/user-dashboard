@@ -26,7 +26,8 @@ const OrdersContainer = styled.div`
   height: 100%;
 `;
 
-const StyledEachOrder = styled.div`
+const StyledEachOrder = styled.details`
+  cursor: pointer;
   padding: var(--padding-12);
   border-radius: var(--padding-6);
   background-color: ${(props) => props.theme.colors.nav_bg};

@@ -6,7 +6,12 @@ interface PropTypes {
 }
 
 const EachOrder = ({ data }: PropTypes) => {
-  return <StyledEachOrder>{data.orderItems[0].name}</StyledEachOrder>;
+  return (
+    <StyledEachOrder>
+      <summary>{data.name}</summary>
+      <p>{data.orderItems[0].name}</p>
+    </StyledEachOrder>
+  );
 };
 
 export { EachOrder };
